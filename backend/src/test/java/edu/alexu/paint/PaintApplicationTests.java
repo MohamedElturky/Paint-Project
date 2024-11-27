@@ -1,10 +1,10 @@
-package com.Paint.Paint.project;
+package edu.alexu.paint;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PaintProjectApplicationTests {
+class PaintApplicationTests {
 
 	@Test
 	void contextLoads() {

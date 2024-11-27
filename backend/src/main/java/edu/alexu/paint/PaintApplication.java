@@ -1,13 +1,13 @@
-package com.Paint.Paint.project;
+package edu.alexu.paint;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PaintProjectApplication {
+public class PaintApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PaintProjectApplication.class, args);
+		SpringApplication.run(PaintApplication.class, args);
 	}
 
 }
