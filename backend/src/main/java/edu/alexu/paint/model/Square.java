@@ -21,7 +21,7 @@ public class Square extends Shape {
 
     @Override
     public void resize(double... size) {
-
+        setSideLength(size[0]);
     }
 
     public double getSideLength() {

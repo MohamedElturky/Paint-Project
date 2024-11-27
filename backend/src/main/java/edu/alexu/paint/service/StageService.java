@@ -15,30 +15,36 @@ public class StageService {
 
     private final ShapeFactory shapeFactory;
     private List<Shape> shapes;
-    private Stack<List<Shape>> historyStack;
+    private final Stack<List<Shape>> backwardStack;
+    private final Stack<List<Shape>> forwardStack;
 
     public StageService(ShapeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
         this.shapes = new ArrayList<>();
-        this.historyStack = new Stack<>();
+        this.backwardStack = new Stack<>();
+        this.forwardStack = new Stack<>();
+    }
+
+    public List<Shape> getShapes() {
+        return shapes;
     }
 
     public void clear() {
         shapes.clear();
-        historyStack.push(shapes);
+        backwardStack.push(shapes);
     }
-
 
     public void addShape(ShapeDTO shapeDTO) {
         Shape shape = shapeFactory.getShape(shapeDTO);
         shapes.add(shape);
-        historyStack.push(shapes);
+        backwardStack.push(shapes);
     }
 
     public void changeShapeColor(String id, String color) {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shape.changeColor(color);
+                backwardStack.push(shapes);
                 return;
             }
         }
@@ -50,7 +56,7 @@ public class StageService {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shapes.remove(shape);
-                historyStack.push(shapes);
+                backwardStack.push(shapes);
                 return;
             }
         }
@@ -61,16 +67,17 @@ public class StageService {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shape.move(x, y);
+                backwardStack.push(shapes);
                 return;
             }
         }
         throw new RuntimeException("Shape not found");
     }
 
-    public Shape copyShape(String id) {
+    public void copyShape(String id) {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
-                return shape.copy();
+                shapes.add(shape.copy());
             }
         }
         throw new RuntimeException("Shape not found");
@@ -80,37 +87,46 @@ public class StageService {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shape.resize(size);
+                backwardStack.push(shapes);
+                return;
             }
         }
+        throw new RuntimeException("Shape not found");
     }
 
     public void undo() {
+        if (!backwardStack.isEmpty()) {
+            forwardStack.push(backwardStack.pop());
+            shapes = backwardStack.peek();
+        }
     }
 
     public void redo() {
+        if (!forwardStack.isEmpty()) {
+            backwardStack.push(forwardStack.pop());
+            shapes = forwardStack.peek();
+        }
     }
 
     public void save(String filePath, String fileFormat) {
     }
 
-    public List<Shape> load(String filePath, String fileFormat) {
+    public void load(String filePath, String fileFormat) {
+
+    }
+
+    private void saveAsXML(String filePath) {
+    }
+
+    private void saveAsJSON(String filePath) {
+    }
+
+    private List<Shape> loadXML(String filePath) {
         return null;
     }
 
-    public void saveAsXML(String filePath) {
-    }
-
-    public void saveAsJSON(String filePath) {
-    }
-
-    public List<Shape> loadXML(String filePath) {
+    private List<Shape> loadJSON(String filePath) {
         return null;
     }
 
-    public List<Shape> loadJSON(String filePath) {
-        return null;
-    }
-
-    private void saveHistory() {
-    }
 }

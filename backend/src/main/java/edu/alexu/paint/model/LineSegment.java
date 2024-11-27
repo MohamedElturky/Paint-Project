@@ -1,8 +1,8 @@
 package edu.alexu.paint.model;
 
-public class LineSegment extends Shape{
+public class LineSegment extends Shape {
 
-    private double[] points = new double[4];
+    private double[] points;
 
     public LineSegment(String id, String type, double x, double y, String stroke,
                        double strokeWidth, boolean draggable, double[] points) {
@@ -10,7 +10,7 @@ public class LineSegment extends Shape{
         this.points = points;
     }
 
-    public LineSegment(LineSegment source){
+    public LineSegment(LineSegment source) {
         super(source);
         this.points = new double[source.points.length];
     }
@@ -21,14 +21,14 @@ public class LineSegment extends Shape{
 
     @Override
     public void resize(double... size) {
-
+        this.points = size;
     }
 
-    public double[] getPoints(){
+    public double[] getPoints() {
         return points;
     }
 
-    public void setPoints(double[] points){
+    public void setPoints(double[] points) {
         this.points = points;
     }
 }

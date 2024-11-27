@@ -2,7 +2,7 @@ package edu.alexu.paint.model;
 
 public class Circle extends Shape {
 
-    private double radius = 30;
+    private double radius;
 
     public Circle(String id, String type, double x, double y, String stroke,
                   double strokeWidth, boolean draggable, double radius) {
@@ -21,7 +21,7 @@ public class Circle extends Shape {
 
     @Override
     public void resize(double... size) {
-
+        radius = size[0];
     }
 
     public double getRadius() {

@@ -33,8 +33,7 @@ public class ShapeFactory {
             case "triangle" ->
                     new Triangle(shapeDTO.getId(), shapeDTO.getType(),shapeDTO.getX(),
                             shapeDTO.getY(), shapeDTO.getStroke(), shapeDTO.getStrokeWidth(),
-                            shapeDTO.isDraggable(), shapeDTO.getHeight(), shapeDTO.getWidth(),
-                            shapeDTO.getSides());
+                            shapeDTO.isDraggable(), shapeDTO.getPoints());
             case "line-segment" ->
                     new LineSegment(shapeDTO.getId(), shapeDTO.getType(),shapeDTO.getX(),
                             shapeDTO.getY(), shapeDTO.getStroke(), shapeDTO.getStrokeWidth(),

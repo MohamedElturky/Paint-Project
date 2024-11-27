@@ -1,6 +1,6 @@
 package edu.alexu.paint.model;
 
-public class Ellipse extends Shape{
+public class Ellipse extends Shape {
 
     private double height;
     private double width;
@@ -12,7 +12,7 @@ public class Ellipse extends Shape{
         this.width = width;
     }
 
-    public Ellipse(Ellipse source){
+    public Ellipse(Ellipse source) {
         super(source);
         this.height = source.height;
         this.width = source.width;
@@ -24,22 +24,23 @@ public class Ellipse extends Shape{
 
     @Override
     public void resize(double... size) {
-
+        this.height = size[0];
+        this.width = size[1];
     }
 
-    public double getHeight(){
+    public double getHeight() {
         return height;
     }
 
-    public double getWidth(){
+    public double getWidth() {
         return width;
     }
 
-    public void setHeight(double height){
+    public void setHeight(double height) {
         this.height = height;
     }
 
-    public void setWidth(double width){
+    public void setWidth(double width) {
         this.width = width;
     }
 }
