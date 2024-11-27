@@ -23,7 +23,7 @@ public class Ellipse extends Shape{
     }
 
     @Override
-    public void resize(Double... size) {
+    public void resize(double... size) {
 
     }
 

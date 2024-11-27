@@ -90,6 +90,6 @@ abstract public class Shape implements Cloneable {
         return clone();
     }
 
-    abstract public void resize(Double... size);
+    abstract public void resize(double... size);
 
 }

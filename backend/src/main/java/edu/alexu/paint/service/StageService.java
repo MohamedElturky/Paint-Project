@@ -13,7 +13,7 @@ import edu.alexu.paint.factory.ShapeFactory;
 @Service
 public class StageService {
 
-    private ShapeFactory shapeFactory;
+    private final ShapeFactory shapeFactory;
     private List<Shape> shapes;
     private Stack<List<Shape>> historyStack;
 
@@ -29,35 +29,59 @@ public class StageService {
     }
 
 
+    public void addShape(ShapeDTO shapeDTO) {
+        Shape shape = shapeFactory.getShape(shapeDTO);
+        shapes.add(shape);
+        historyStack.push(shapes);
+    }
+
     public void changeShapeColor(String id, String color) {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
-                shape.setStroke(color);
+                shape.changeColor(color);
                 return;
             }
         }
+        throw new RuntimeException("Shape not found");
     }
 
-
-    public void addShape(ShapeDTO shapeDTO) {
-    }
 
     public void deleteShape(String id) {
+        for (Shape shape : shapes) {
+            if (shape.getId().equals(id)) {
+                shapes.remove(shape);
+                historyStack.push(shapes);
+                return;
+            }
+        }
+        throw new RuntimeException("Shape not found");
     }
 
     public void moveShape(String id, double x, double y) {
+        for (Shape shape : shapes) {
+            if (shape.getId().equals(id)) {
+                shape.move(x, y);
+                return;
+            }
+        }
+        throw new RuntimeException("Shape not found");
     }
 
     public Shape copyShape(String id) {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
-                return shape.clone();
+                return shape.copy();
             }
         }
-        throw new RuntimeException("Invalid shape id");
+        throw new RuntimeException("Shape not found");
     }
 
     public void resizeShape(String id, double... size) {
+        for (Shape shape : shapes) {
+            if (shape.getId().equals(id)) {
+                shape.resize(size);
+            }
+        }
     }
 
     public void undo() {

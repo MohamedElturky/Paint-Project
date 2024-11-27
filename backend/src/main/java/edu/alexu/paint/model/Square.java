@@ -20,7 +20,7 @@ public class Square extends Shape {
     }
 
     @Override
-    public void resize(Double... size) {
+    public void resize(double... size) {
 
     }
 
