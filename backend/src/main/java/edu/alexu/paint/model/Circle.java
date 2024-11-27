@@ -4,8 +4,10 @@ public class Circle extends Shape {
 
     private double radius = 30;
 
-    public Circle(String type, String id, boolean draggable) {
-        super(type, id, draggable);
+    public Circle(String id, String type, double x, double y, String stroke,
+                  double strokeWidth, boolean draggable, double radius) {
+        super(id, type, x, y, stroke, strokeWidth, draggable);
+        this.radius = radius;
     }
 
     public Circle(Circle source) {

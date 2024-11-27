@@ -5,8 +5,11 @@ public class Ellipse extends Shape{
     private double height;
     private double width;
 
-    public Ellipse(String type, String id, boolean draggable) {
-        super(type, id, draggable);
+    public Ellipse(String id, String type, double x, double y, String stroke,
+                   double strokeWidth, boolean draggable, double height, double width) {
+        super(id, type, x, y, stroke, strokeWidth, draggable);
+        this.height = height;
+        this.width = width;
     }
 
     public Ellipse(Ellipse source){

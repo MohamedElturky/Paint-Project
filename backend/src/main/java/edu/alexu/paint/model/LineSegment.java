@@ -4,8 +4,10 @@ public class LineSegment extends Shape{
 
     private double[] points = new double[4];
 
-    public LineSegment(String type, String id, boolean draggable) {
-        super(type, id, draggable);
+    public LineSegment(String id, String type, double x, double y, String stroke,
+                       double strokeWidth, boolean draggable, double[] points) {
+        super(id, type, x, y, stroke, strokeWidth, draggable);
+        this.points = points;
     }
 
     public LineSegment(LineSegment source){

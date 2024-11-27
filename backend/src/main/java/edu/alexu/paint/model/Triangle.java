@@ -4,10 +4,15 @@ public class Triangle extends Shape{
 
     private double height;
     private double width;
-    private int sides;
+    private final int sides;
 
-    public Triangle(String type, String id, boolean draggable) {
-        super(type, id, draggable);
+    public Triangle(String id, String type, double x, double y, String stroke,
+                    double strokeWidth, boolean draggable, double height,
+                    double width, int sides) {
+        super(id, type, x, y, stroke, strokeWidth, draggable);
+        this.height = height;
+        this.width = width;
+        this.sides = sides;
     }
 
     public Triangle(Triangle source){

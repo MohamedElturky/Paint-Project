@@ -1,5 +1,6 @@
 package edu.alexu.paint.service;
 
+import edu.alexu.paint.dto.ShapeDTO;
 import edu.alexu.paint.model.Shape;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,32 +15,27 @@ public class StageService {
 
     private ShapeFactory shapeFactory;
     private List<Shape> shapes;
-    private String backgroundColor;
-    private double width;
-    private double height;
     private Stack<List<Shape>> historyStack;
 
-    public StageService(ShapeFactory shapeFactory, String backgroundColor, double width, double height) {
+    public StageService(ShapeFactory shapeFactory) {
         this.shapeFactory = shapeFactory;
         this.shapes = new ArrayList<>();
-        this.backgroundColor = backgroundColor;
-        this.width = width;
-        this.height = height;
         this.historyStack = new Stack<>();
     }
 
     public void clear() {
-    }
-
-    public void resize(double width, double height) {
-    }
-
-    public void setBackgroundColor(String color) {
-        this.backgroundColor = color;
+        shapes.clear();
+        historyStack.push(shapes);
     }
 
 
-    public void changeShapeColor(String color) {
+    public void changeShapeColor(String id, String color) {
+        for (Shape shape : shapes) {
+            if (shape.getId().equals(id)) {
+                shape.setStroke(color);
+                return;
+            }
+        }
     }
 
 
@@ -74,6 +70,7 @@ public class StageService {
     }
 
     public List<Shape> load(String filePath, String fileFormat) {
+        return null;
     }
 
     public void saveAsXML(String filePath) {
@@ -83,9 +80,11 @@ public class StageService {
     }
 
     public List<Shape> loadXML(String filePath) {
+        return null;
     }
 
     public List<Shape> loadJSON(String filePath) {
+        return null;
     }
 
     private void saveHistory() {

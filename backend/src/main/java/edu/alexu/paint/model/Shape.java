@@ -10,9 +10,14 @@ abstract public class Shape implements Cloneable {
     private double strokeWidth;
     private final boolean draggable;
 
-    public Shape(String id, String type, boolean draggable) {
+    public Shape(String id, String type, double x, double y, String stroke,
+                 double strokeWidth, boolean draggable) {
         this.id = id;
         this.type = type;
+        this.x = x;
+        this.y = y;
+        this.stroke = stroke;
+        this.strokeWidth = strokeWidth;
         this.draggable = draggable;
     }
 
@@ -71,7 +76,7 @@ abstract public class Shape implements Cloneable {
     }
 
     public void changeColor(String color) {
-        this.stroke = color;
+         this.stroke = color;
     }
 
     public abstract Shape clone();
