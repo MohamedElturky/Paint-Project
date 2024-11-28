@@ -1,12 +1,20 @@
 package edu.alexu.paint.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class Circle extends Shape {
 
     private double radius;
 
-    public Circle(String id, String type, double x, double y, String stroke,
-                  double strokeWidth, boolean draggable, double radius) {
-        super(id, type, x, y, stroke, strokeWidth, draggable);
+    @JsonCreator
+    public Circle(String id, double x, double y, String stroke,
+            double strokeWidth, double radius) {
+        super(id, x, y, stroke, strokeWidth);
+        this.radius = radius;
+    }
+
+    public Circle(Shape shape, double radius) {
+        super(shape);
         this.radius = radius;
     }
 

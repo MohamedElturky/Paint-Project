@@ -10,37 +10,23 @@ import edu.alexu.paint.model.Triangle;
 import edu.alexu.paint.model.LineSegment;
 import org.springframework.stereotype.Component;
 
-import java.util.Locale;
-
 @Component
 public class ShapeFactory {
     public Shape getShape(ShapeDTO shapeDTO) {
+
+        Shape shape = new Shape(shapeDTO.getId(),shapeDTO.getX(),
+                          shapeDTO.getY(), shapeDTO.getStroke(),
+                          shapeDTO.getStrokeWidth());
+
         return switch (shapeDTO.getType().toLowerCase()) {
-            case "circle" ->
-                    new Circle(shapeDTO.getId(), shapeDTO.getType(),shapeDTO.getX(),
-                    shapeDTO.getY(), shapeDTO.getStroke(), shapeDTO.getStrokeWidth(),
-                    shapeDTO.isDraggable(), shapeDTO.getRadius());
-            case "square" ->
-                    new Square(shapeDTO.getId(), shapeDTO.getType(),shapeDTO.getX(),
-                    shapeDTO.getY(), shapeDTO.getStroke(), shapeDTO.getStrokeWidth(),
-                    shapeDTO.isDraggable(), shapeDTO.getSideLength());
-            case "rectangle" ->
-                    new Rectangle(shapeDTO.getId(), shapeDTO.getType(),shapeDTO.getX(),
-                    shapeDTO.getY(), shapeDTO.getStroke(), shapeDTO.getStrokeWidth(),
-                    shapeDTO.isDraggable(), shapeDTO.getHeight(), shapeDTO.getWidth());
-            case "ellipse" ->
-                    new Ellipse(shapeDTO.getId(), shapeDTO.getType(),shapeDTO.getX(),
-                            shapeDTO.getY(), shapeDTO.getStroke(), shapeDTO.getStrokeWidth(),
-                            shapeDTO.isDraggable(), shapeDTO.getHeight(), shapeDTO.getWidth());
-            case "triangle" ->
-                    new Triangle(shapeDTO.getId(), shapeDTO.getType(),shapeDTO.getX(),
-                            shapeDTO.getY(), shapeDTO.getStroke(), shapeDTO.getStrokeWidth(),
-                            shapeDTO.isDraggable(), shapeDTO.getPoints());
-            case "line-segment" ->
-                    new LineSegment(shapeDTO.getId(), shapeDTO.getType(),shapeDTO.getX(),
-                            shapeDTO.getY(), shapeDTO.getStroke(), shapeDTO.getStrokeWidth(),
-                            shapeDTO.isDraggable(), shapeDTO.getPoints());
+            case "circle" -> new Circle(shape, shapeDTO.getRadius());
+            case "square" -> new Square(shape, shapeDTO.getSideLength());
+            case "rectangle" -> new Rectangle(shape, shapeDTO.getHeight(), shapeDTO.getWidth());
+            case "ellipse" -> new Ellipse(shape, shapeDTO.getHeight(), shapeDTO.getWidth());
+            case "triangle" -> new Triangle(shape, shapeDTO.getPoints());
+            case "line-segment" -> new LineSegment(shape, shapeDTO.getPoints());
             default -> throw new RuntimeException("Invalid shape type");
         };
+
     }
 }

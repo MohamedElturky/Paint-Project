@@ -1,59 +1,51 @@
 package edu.alexu.paint.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
-        property = "type"  // Use the 'typed' field to decide the class type
+        property = "type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Circle.class, name = "circle"),
-        @JsonSubTypes.Type(value = Square.class, name = "square"),
-        @JsonSubTypes.Type(value = Rectangle.class, name = "rectangle"),
-        @JsonSubTypes.Type(value = Ellipse.class, name = "ellipse"),
-        @JsonSubTypes.Type(value = Triangle.class, name = "triangle"),
-        @JsonSubTypes.Type(value = LineSegment.class, name = "line-segment")
+        @Type(value = Circle.class, name = "circle"),
+        @Type(value = Square.class, name = "square"),
+        @Type(value = Rectangle.class, name = "rectangle"),
+        @Type(value = Ellipse.class, name = "ellipse"),
+        @Type(value = Triangle.class, name = "triangle"),
+        @Type(value = LineSegment.class, name = "line-segment")
 })
-abstract public class Shape implements Cloneable {
+public class Shape implements Cloneable {
 
     private String id;
-    private final String type;
     private double x;
     private double y;
     private String stroke;
     private double strokeWidth;
-    private final boolean draggable;
 
-    public Shape(String id, String type, double x, double y, String stroke,
-                 double strokeWidth, boolean draggable) {
+    public Shape(String id, double x, double y, String stroke,
+                 double strokeWidth) {
         this.id = id;
-        this.type = type;
         this.x = x;
         this.y = y;
         this.stroke = stroke;
         this.strokeWidth = strokeWidth;
-        this.draggable = draggable;
     }
 
     public Shape(Shape source) {
         this.id = source.getId();
-        this.type = source.getType();
         this.x = source.getX();
         this.y = source.getY();
         this.stroke = source.getStroke();
         this.strokeWidth = source.getStrokeWidth();
-        this.draggable = source.isDraggable();
     }
 
     public String getId() {
         return id;
     }
 
-    public String getType() {
-        return type;
-    }
 
     public double getX() {
         return x;
@@ -71,9 +63,6 @@ abstract public class Shape implements Cloneable {
         return strokeWidth;
     }
 
-    public boolean isDraggable() {
-        return draggable;
-    }
 
     public void setId(String id) {
         this.id = id;
@@ -99,7 +88,9 @@ abstract public class Shape implements Cloneable {
          this.stroke = color;
     }
 
-    public abstract Shape clone();
+    public Shape clone() {
+        return new Shape(this);
+    }
 
     public void move(double x, double y) {
         this.x = x;
@@ -110,6 +101,6 @@ abstract public class Shape implements Cloneable {
         return clone();
     }
 
-    abstract public void resize(double... size);
+    public void resize(double... size) {}
 
 }

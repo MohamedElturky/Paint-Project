@@ -1,12 +1,20 @@
 package edu.alexu.paint.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class Triangle extends Shape {
 
     double[] points;
 
-    public Triangle(String id, String type, double x, double y, String stroke,
-                    double strokeWidth, boolean draggable, double[] points) {
-        super(id, type, x, y, stroke, strokeWidth, draggable);
+    @JsonCreator
+    public Triangle(String id, double x, double y, String stroke,
+                    double strokeWidth, double[] points) {
+        super(id, x, y, stroke, strokeWidth);
+        this.points = points;
+    }
+
+    public Triangle(Shape shape, double[] points) {
+        super(shape);
         this.points = points;
     }
 

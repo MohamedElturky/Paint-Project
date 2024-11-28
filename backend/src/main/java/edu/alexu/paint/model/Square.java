@@ -1,12 +1,20 @@
 package edu.alexu.paint.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class Square extends Shape {
 
-    private double sideLength = 30;
+    private double sideLength;
 
-    public Square(String id, String type, double x, double y, String stroke,
-                  double strokeWidth, boolean draggable, double sideLength) {
-        super(id, type, x, y, stroke, strokeWidth, draggable);
+    @JsonCreator
+    public Square(String id, double x, double y, String stroke,
+                  double strokeWidth, double sideLength) {
+        super(id, x, y, stroke, strokeWidth);
+        this.sideLength = sideLength;
+    }
+
+    public Square(Shape shape, double sideLength) {
+        super(shape);
         this.sideLength = sideLength;
     }
 

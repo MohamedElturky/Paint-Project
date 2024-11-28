@@ -1,12 +1,20 @@
 package edu.alexu.paint.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class LineSegment extends Shape {
 
     private double[] points;
 
-    public LineSegment(String id, String type, double x, double y, String stroke,
-                       double strokeWidth, boolean draggable, double[] points) {
-        super(id, type, x, y, stroke, strokeWidth, draggable);
+    @JsonCreator
+    public LineSegment(String id, double x, double y, String stroke,
+                       double strokeWidth, double[] points) {
+        super(id, x, y, stroke, strokeWidth);
+        this.points = points;
+    }
+
+    public LineSegment(Shape shape, double[] points) {
+        super(shape);
         this.points = points;
     }
 

@@ -1,13 +1,22 @@
 package edu.alexu.paint.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class Ellipse extends Shape {
 
     private double height;
     private double width;
 
-    public Ellipse(String id, String type, double x, double y, String stroke,
-                   double strokeWidth, boolean draggable, double height, double width) {
-        super(id, type, x, y, stroke, strokeWidth, draggable);
+    @JsonCreator
+    public Ellipse(String id, double x, double y, String stroke,
+                   double strokeWidth, double height, double width) {
+        super(id, x, y, stroke, strokeWidth);
+        this.height = height;
+        this.width = width;
+    }
+
+    public Ellipse(Shape shape, double height, double width) {
+        super(shape);
         this.height = height;
         this.width = width;
     }
