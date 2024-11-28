@@ -13,23 +13,9 @@ public class Circle extends Shape {
         this.radius = radius;
     }
 
-    public Circle(Shape shape, double radius) {
-        super(shape);
-        this.radius = radius;
-    }
-
     public Circle(Circle source) {
         super(source);
         radius = source.getRadius();
-    }
-
-    public Shape clone() {
-        return new Circle(this);
-    }
-
-    @Override
-    public void resize(double... size) {
-        radius = size[0];
     }
 
     public double getRadius() {
@@ -38,5 +24,15 @@ public class Circle extends Shape {
 
     public void setRadius(double radius) {
         this.radius = radius;
+    }
+
+    @Override
+    public Shape clone() {
+        return new Circle(this);
+    }
+
+    @Override
+    public void resize(double... size) {
+        radius = size[0];
     }
 }

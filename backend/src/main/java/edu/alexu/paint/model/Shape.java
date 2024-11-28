@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @Type(value = Triangle.class, name = "triangle"),
         @Type(value = LineSegment.class, name = "line-segment")
 })
-public class Shape implements Cloneable {
+public abstract class Shape implements Cloneable {
 
     private String id;
     private double x;
@@ -88,19 +88,16 @@ public class Shape implements Cloneable {
          this.stroke = color;
     }
 
-    public Shape clone() {
-        return new Shape(this);
-    }
-
     public void move(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
     public Shape copy() {
-        return clone();
+        return this.clone();
     }
 
-    public void resize(double... size) {}
+    public abstract void resize(double... size);
 
+    public abstract Shape clone();
 }

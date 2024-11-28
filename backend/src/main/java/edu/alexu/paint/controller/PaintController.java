@@ -1,6 +1,5 @@
 package edu.alexu.paint.controller;
 
-import edu.alexu.paint.dto.ShapeDTO;
 import edu.alexu.paint.model.Shape;
 import edu.alexu.paint.service.StageService;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +32,8 @@ public class PaintController {
     }
 
     @PostMapping("/add")
-    public List<Shape> addShape(@RequestBody ShapeDTO shapeDTO) {
-        stageService.addShape(shapeDTO);
+    public List<Shape> addShape(@RequestBody Shape shape) {
+        stageService.addShape(shape);
         return stageService.getShapes();
     }
 

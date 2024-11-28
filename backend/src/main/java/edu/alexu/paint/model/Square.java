@@ -13,23 +13,9 @@ public class Square extends Shape {
         this.sideLength = sideLength;
     }
 
-    public Square(Shape shape, double sideLength) {
-        super(shape);
-        this.sideLength = sideLength;
-    }
-
     public Square(Square source) {
         super(source);
         sideLength = source.getSideLength();
-    }
-
-    public Shape clone() {
-        return new Square(this);
-    }
-
-    @Override
-    public void resize(double... size) {
-        setSideLength(size[0]);
     }
 
     public double getSideLength() {
@@ -38,5 +24,15 @@ public class Square extends Shape {
 
     public void setSideLength(double sideLength) {
         this.sideLength = sideLength;
+    }
+
+    @Override
+    public Shape clone() {
+        return new Square(this);
+    }
+
+    @Override
+    public void resize(double... size) {
+        this.sideLength = size[0];
     }
 }

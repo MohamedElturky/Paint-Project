@@ -2,7 +2,7 @@ package edu.alexu.paint.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-public class Rectangle extends Shape{
+public class Rectangle extends Shape {
 
     private double height;
     private double width;
@@ -15,26 +15,10 @@ public class Rectangle extends Shape{
         this.width = width;
     }
 
-    public Rectangle(Shape shape, double height, double width) {
-        super(shape);
-        this.height = height;
-        this.width = width;
-    }
-
     public Rectangle(Rectangle source) {
         super(source);
         this.height = source.height;
         this.width = source.width;
-    }
-
-    public Shape clone() {
-        return new Rectangle(this);
-    }
-
-    @Override
-    public void resize(double... size) {
-        this.height = size[0];
-        this.width = size[1];
     }
 
     public double getHeight() {
@@ -51,5 +35,16 @@ public class Rectangle extends Shape{
 
     public void setWidth(double width) {
         this.width = width;
+    }
+
+    @Override
+    public Shape clone() {
+        return new Rectangle(this);
+    }
+
+    @Override
+    public void resize(double... size) {
+        this.height = size[0];
+        this.width = size[1];
     }
 }

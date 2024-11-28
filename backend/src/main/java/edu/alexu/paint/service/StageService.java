@@ -1,6 +1,5 @@
 package edu.alexu.paint.service;
 
-import edu.alexu.paint.dto.ShapeDTO;
 import edu.alexu.paint.model.Shape;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,20 +7,16 @@ import java.util.Stack;
 
 import org.springframework.stereotype.Service;
 
-import edu.alexu.paint.factory.ShapeFactory;
-
 @Service
 public class StageService {
 
     private int shapeCount;
-    private final ShapeFactory shapeFactory;
     private List<Shape> shapes;
     private final Stack<List<Shape>> backwardStack;
     private final Stack<List<Shape>> forwardStack;
 
-    public StageService(ShapeFactory shapeFactory) {
+    public StageService() {
         shapeCount = 0;
-        this.shapeFactory = shapeFactory;
         this.shapes = new ArrayList<>();
         this.backwardStack = new Stack<>();
         this.forwardStack = new Stack<>();
@@ -41,24 +36,20 @@ public class StageService {
 
     public void clear() {
         shapes.clear();
-        forwardStack.clear();
-        backwardStack.push(new ArrayList<>(shapes));
+        recordAction();
     }
 
-    public void addShape(ShapeDTO shapeDTO) {
-        shapeDTO.setId(String.valueOf(++shapeCount));
-        Shape shape = shapeFactory.getShape(shapeDTO);
+    public void addShape(Shape shape) {
+        shape.setId(String.valueOf(++shapeCount));
         shapes.add(shape);
-        forwardStack.clear();
-        backwardStack.push(new ArrayList<>(shapes));
+        recordAction();
     }
 
     public void deleteShape(String id) {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shapes.remove(shape);
-                forwardStack.clear();
-                backwardStack.push(new ArrayList<>(shapes));
+                recordAction();
                 return;
             }
         }
@@ -69,8 +60,7 @@ public class StageService {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shape.changeColor(color);
-                forwardStack.clear();
-                backwardStack.push(new ArrayList<>(shapes));
+                recordAction();
                 return;
             }
         }
@@ -82,8 +72,7 @@ public class StageService {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shape.move(x, y);
-                forwardStack.clear();
-                backwardStack.push(new ArrayList<>(shapes));
+                recordAction();
                 return;
             }
         }
@@ -96,8 +85,7 @@ public class StageService {
                 Shape s = shape.copy();
                 s.setId(String.valueOf(++shapeCount));
                 shapes.add(s);
-                forwardStack.clear();
-                backwardStack.push(new ArrayList<>(shapes));
+                recordAction();
                 return;
             }
         }
@@ -108,8 +96,7 @@ public class StageService {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shape.resize(size);
-                forwardStack.clear();
-                backwardStack.push(new ArrayList<>(shapes));
+                recordAction();
                 return;
             }
         }
@@ -137,6 +124,11 @@ public class StageService {
     public void load(List<Shape> shapes) {
         reset();
         this.shapes.addAll(shapes);
+    }
+
+    private void recordAction() {
+        forwardStack.clear();
+        backwardStack.push(new ArrayList<>(shapes));
     }
 
 }

@@ -15,12 +15,6 @@ public class Ellipse extends Shape {
         this.width = width;
     }
 
-    public Ellipse(Shape shape, double height, double width) {
-        super(shape);
-        this.height = height;
-        this.width = width;
-    }
-
     public Ellipse(Ellipse source) {
         super(source);
         this.height = source.height;

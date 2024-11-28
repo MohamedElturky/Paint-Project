@@ -13,18 +13,9 @@ public class Triangle extends Shape {
         this.points = points;
     }
 
-    public Triangle(Shape shape, double[] points) {
-        super(shape);
-        this.points = points;
-    }
-
     public Triangle(Triangle source){
         super(source);
         this.points = source.getPoints();
-    }
-
-    public Shape clone() {
-        return new Triangle(this);
     }
 
     public double[] getPoints() {
@@ -36,7 +27,12 @@ public class Triangle extends Shape {
     }
 
     @Override
+    public Shape clone() {
+        return new Triangle(this);
+    }
+
+    @Override
     public void resize(double... size) {
-        points = size;
+        this.points = size;
     }
 }
