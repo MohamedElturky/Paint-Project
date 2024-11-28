@@ -41,6 +41,7 @@ public class StageService {
 
     public void clear() {
         shapes.clear();
+        forwardStack.clear();
         backwardStack.push(new ArrayList<>(shapes));
     }
 
@@ -48,6 +49,7 @@ public class StageService {
         shapeDTO.setId(String.valueOf(++shapeCount));
         Shape shape = shapeFactory.getShape(shapeDTO);
         shapes.add(shape);
+        forwardStack.clear();
         backwardStack.push(new ArrayList<>(shapes));
     }
 
@@ -55,6 +57,7 @@ public class StageService {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shapes.remove(shape);
+                forwardStack.clear();
                 backwardStack.push(new ArrayList<>(shapes));
                 return;
             }
@@ -66,6 +69,7 @@ public class StageService {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shape.changeColor(color);
+                forwardStack.clear();
                 backwardStack.push(new ArrayList<>(shapes));
                 return;
             }
@@ -78,6 +82,7 @@ public class StageService {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shape.move(x, y);
+                forwardStack.clear();
                 backwardStack.push(new ArrayList<>(shapes));
                 return;
             }
@@ -91,6 +96,7 @@ public class StageService {
                 Shape s = shape.copy();
                 s.setId(String.valueOf(++shapeCount));
                 shapes.add(s);
+                forwardStack.clear();
                 backwardStack.push(new ArrayList<>(shapes));
                 return;
             }
@@ -102,6 +108,7 @@ public class StageService {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
                 shape.resize(size);
+                forwardStack.clear();
                 backwardStack.push(new ArrayList<>(shapes));
                 return;
             }
