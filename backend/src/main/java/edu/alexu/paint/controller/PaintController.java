@@ -1,12 +1,19 @@
 package edu.alexu.paint.controller;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.*;
-
-import edu.alexu.paint.model.Shape;
 import edu.alexu.paint.dto.ShapeDTO;
+import edu.alexu.paint.model.Shape;
 import edu.alexu.paint.service.StageService;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -74,14 +81,25 @@ public class PaintController {
         return stageService.getShapes();
     }
 
-    @GetMapping("/save")
-    public List<Shape> saveStage(@RequestParam String fileFormat) {
-        return stageService.save(fileFormat);
+    @GetMapping("/save/json")
+    public List<Shape> saveAsJSON() {
+        return stageService.save();
     }
 
-    @PostMapping("/load")
-    public List<Shape> loadStage(@RequestParam String fileFormat, @RequestBody List<Shape> shapes) {
-        stageService.load(fileFormat, shapes);
+    @PostMapping("/load/json")
+    public List<Shape> loadFromJSON(@RequestBody List<Shape> shapes) {
+        stageService.load(shapes);
+        return stageService.getShapes();
+    }
+
+    @GetMapping(value = "/save/xml", produces = "application/xml")
+    public List<Shape> saveAsXML() {
+        return stageService.getShapes();
+    }
+
+    @PostMapping(value = "/load/xml", consumes = "application/xml")
+    public List<Shape> loadFromXML(@RequestBody List<Shape> shapes) {
+        stageService.load(shapes);
         return stageService.getShapes();
     }
 }

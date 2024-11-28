@@ -123,40 +123,13 @@ public class StageService {
         }
     }
 
-    public List<Shape> save(String fileFormat) {
-        if (fileFormat.equalsIgnoreCase("json")) {
-            return saveAsJSON();
-        }
-        else {
-            return null; // Return XML format.
-        }
+    public List<Shape> save() {
+        return this.shapes;
     }
 
-    public void load(String fileFormat, List<Shape> shapes) {
-        if (fileFormat.equalsIgnoreCase("json")) {
-            reset();
-            loadJSON(shapes);
-        }
-        else {
-            clear();
-            // this.shapes = mapping of XML to list of shapes.
-        }
-    }
-
-    private List<Shape> saveAsXML(String filePath) {
-        return null;
-    }
-
-    private List<Shape> saveAsJSON() {
-        return shapes;
-    }
-
-    private List<Shape> loadXML(String filePath) {
-        return null;
-    }
-
-    private void loadJSON(List<Shape> shapes) {
-        this.shapes = shapes;
+    public void load(List<Shape> shapes) {
+        reset();
+        this.shapes.addAll(shapes);
     }
 
 }
