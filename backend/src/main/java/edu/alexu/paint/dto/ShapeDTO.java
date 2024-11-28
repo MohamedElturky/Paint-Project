@@ -8,12 +8,10 @@ public class ShapeDTO {
     private double y;
     private String stroke;
     private double strokeWidth;
-    private boolean draggable;
     private double height;
     private double width;
     private double sideLength;
     private double radius;
-    private int sides;
     private double[] points;
 
     public String getType() {
@@ -40,9 +38,6 @@ public class ShapeDTO {
         return strokeWidth;
     }
 
-    public boolean isDraggable() {
-        return draggable;
-    }
 
     public double getHeight() {
         return height;
@@ -60,9 +55,6 @@ public class ShapeDTO {
         return radius;
     }
 
-    public int getSides() {
-        return sides;
-    }
 
     public double[] getPoints() {
         return points;
@@ -92,9 +84,6 @@ public class ShapeDTO {
         this.strokeWidth = strokeWidth;
     }
 
-    public void setDraggable(boolean draggable) {
-        this.draggable = draggable;
-    }
 
     public void setHeight(double height) {
         this.height = height;
@@ -112,9 +101,6 @@ public class ShapeDTO {
         this.radius = radius;
     }
 
-    public void setSides(int sides) {
-        this.sides = sides;
-    }
 
     public void setPoints(double[] points) {
         this.points = points;
