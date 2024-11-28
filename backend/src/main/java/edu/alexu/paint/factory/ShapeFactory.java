@@ -10,10 +10,12 @@ import edu.alexu.paint.model.Triangle;
 import edu.alexu.paint.model.LineSegment;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 @Component
 public class ShapeFactory {
     public Shape getShape(ShapeDTO shapeDTO) {
-        return switch (shapeDTO.getType()) {
+        return switch (shapeDTO.getType().toLowerCase()) {
             case "circle" ->
                     new Circle(shapeDTO.getId(), shapeDTO.getType(),shapeDTO.getX(),
                     shapeDTO.getY(), shapeDTO.getStroke(), shapeDTO.getStrokeWidth(),

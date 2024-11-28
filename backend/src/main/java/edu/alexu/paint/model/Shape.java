@@ -1,8 +1,24 @@
 package edu.alexu.paint.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type"  // Use the 'typed' field to decide the class type
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Circle.class, name = "circle"),
+        @JsonSubTypes.Type(value = Square.class, name = "square"),
+        @JsonSubTypes.Type(value = Rectangle.class, name = "rectangle"),
+        @JsonSubTypes.Type(value = Ellipse.class, name = "ellipse"),
+        @JsonSubTypes.Type(value = Triangle.class, name = "triangle"),
+        @JsonSubTypes.Type(value = LineSegment.class, name = "line-segment")
+})
 abstract public class Shape implements Cloneable {
 
-    private final String id;
+    private String id;
     private final String type;
     private double x;
     private double y;
@@ -57,6 +73,10 @@ abstract public class Shape implements Cloneable {
 
     public boolean isDraggable() {
         return draggable;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setX(double x) {
