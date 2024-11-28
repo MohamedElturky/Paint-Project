@@ -7,10 +7,9 @@ public class Circle extends Shape {
     private double radius;
 
     @JsonCreator
-    public Circle(String id, double x, double y, String stroke,
-            double strokeWidth, double radius) {
-        super(id, x, y, stroke, strokeWidth);
-        this.radius = radius;
+    public Circle(ShapeConfig shapeConfig) {
+        super(shapeConfig);
+        this.radius = shapeConfig.radius();
     }
 
     public Circle(Circle source) {

@@ -7,10 +7,9 @@ public class Square extends Shape {
     private double sideLength;
 
     @JsonCreator
-    public Square(String id, double x, double y, String stroke,
-                  double strokeWidth, double sideLength) {
-        super(id, x, y, stroke, strokeWidth);
-        this.sideLength = sideLength;
+    public Square(ShapeConfig shapeConfig) {
+        super(shapeConfig);
+        this.sideLength = shapeConfig.sideLength();
     }
 
     public Square(Square source) {

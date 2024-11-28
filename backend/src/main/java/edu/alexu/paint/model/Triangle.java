@@ -7,10 +7,9 @@ public class Triangle extends Shape {
     double[] points;
 
     @JsonCreator
-    public Triangle(String id, double x, double y, String stroke,
-                    double strokeWidth, double[] points) {
-        super(id, x, y, stroke, strokeWidth);
-        this.points = points;
+    public Triangle(ShapeConfig shapeConfig) {
+        super(shapeConfig);
+        this.points = shapeConfig.points();
     }
 
     public Triangle(Triangle source){

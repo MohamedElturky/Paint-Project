@@ -8,11 +8,10 @@ public class Rectangle extends Shape {
     private double width;
 
     @JsonCreator
-    public Rectangle(String id, double x, double y, String stroke,
-                     double strokeWidth, double height, double width) {
-        super(id, x, y, stroke, strokeWidth);
-        this.height = height;
-        this.width = width;
+    public Rectangle(ShapeConfig shapeConfig) {
+        super(shapeConfig);
+        this.height = shapeConfig.height();
+        this.width = shapeConfig.width();
     }
 
     public Rectangle(Rectangle source) {

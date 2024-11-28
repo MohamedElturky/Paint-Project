@@ -25,13 +25,12 @@ public abstract class Shape implements Cloneable {
     private String stroke;
     private double strokeWidth;
 
-    public Shape(String id, double x, double y, String stroke,
-                 double strokeWidth) {
-        this.id = id;
-        this.x = x;
-        this.y = y;
-        this.stroke = stroke;
-        this.strokeWidth = strokeWidth;
+    public Shape(ShapeConfig shapeConfig) {
+        this.id = shapeConfig.id();
+        this.x = shapeConfig.x();
+        this.y = shapeConfig.y();
+        this.stroke = shapeConfig.stroke();
+        this.strokeWidth = shapeConfig.strokeWidth();
     }
 
     public Shape(Shape source) {
@@ -62,7 +61,6 @@ public abstract class Shape implements Cloneable {
     public double getStrokeWidth() {
         return strokeWidth;
     }
-
 
     public void setId(String id) {
         this.id = id;

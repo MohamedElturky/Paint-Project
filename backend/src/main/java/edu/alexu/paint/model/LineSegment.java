@@ -7,10 +7,9 @@ public class LineSegment extends Shape {
     private double[] points;
 
     @JsonCreator
-    public LineSegment(String id, double x, double y, String stroke,
-                       double strokeWidth, double[] points) {
-        super(id, x, y, stroke, strokeWidth);
-        this.points = points;
+    public LineSegment(ShapeConfig shapeConfig) {
+        super(shapeConfig);
+        this.points = shapeConfig.points();
     }
 
     public LineSegment(LineSegment source) {
