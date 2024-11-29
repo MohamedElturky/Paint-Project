@@ -23,20 +23,21 @@ public class StageService {
         backwardStack.push(new ArrayList<>(shapes)); // Empty stage
     }
 
-    public List<Shape> getShapes() {
-        return shapes;
-    }
-
-    private void reset() {
+    public void reset() {
         shapeCount = 0;
         shapes.clear();
         backwardStack.clear();
         forwardStack.clear();
+        backwardStack.push(new ArrayList<>());
     }
 
     public void clear() {
         shapes.clear();
         recordAction();
+    }
+
+    public List<Shape> getShapes() {
+        return shapes;
     }
 
     public void addShape(Shape shape) {
@@ -106,14 +107,14 @@ public class StageService {
     public void undo() {
         if (backwardStack.size() > 1) {
             forwardStack.push(backwardStack.pop());
-            this.shapes = backwardStack.peek();
+            this.shapes = cloneShapes(backwardStack.peek());
         }
     }
 
     public void redo() {
         if (!forwardStack.isEmpty()) {
             backwardStack.push(forwardStack.pop());
-            this.shapes = backwardStack.peek();
+            this.shapes = cloneShapes(backwardStack.peek());
         }
     }
 
@@ -128,15 +129,14 @@ public class StageService {
 
     private void recordAction() {
         forwardStack.clear();
-        backwardStack.push(cloneShapes());
+        backwardStack.push(cloneShapes(this.shapes));
     }
 
-    private List<Shape> cloneShapes() {
-        List<Shape> shapes = new ArrayList<>();
-        for (Shape shape : this.shapes) {
-            shapes.add(shape.copy());
+    private List<Shape> cloneShapes(List<Shape> shapes) {
+        List<Shape> clone = new ArrayList<>();
+        for (Shape shape : shapes) {
+            clone.add(shape.copy());
         }
-        return shapes;
+        return clone;
     }
-
 }

@@ -25,14 +25,20 @@ public class PaintController {
         this.stageService = stageService;
     }
 
-    @GetMapping("/shapes")
-    public List<Shape> getShapes() {
-        return stageService.getShapes();
+
+    @DeleteMapping("/reset")
+    public void reset() {
+        stageService.reset();
     }
 
     @DeleteMapping("/clear")
     public void clear() {
         stageService.clear();
+    }
+
+    @GetMapping("/shapes")
+    public List<Shape> getShapes() {
+        return stageService.getShapes();
     }
 
     @PostMapping("/add")
