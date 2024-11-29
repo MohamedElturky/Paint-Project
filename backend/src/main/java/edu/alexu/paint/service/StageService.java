@@ -106,14 +106,14 @@ public class StageService {
     public void undo() {
         if (backwardStack.size() > 1) {
             forwardStack.push(backwardStack.pop());
-            shapes = backwardStack.peek();
+            this.shapes = backwardStack.peek();
         }
     }
 
     public void redo() {
         if (!forwardStack.isEmpty()) {
             backwardStack.push(forwardStack.pop());
-            shapes = backwardStack.peek();
+            this.shapes = backwardStack.peek();
         }
     }
 
@@ -128,7 +128,15 @@ public class StageService {
 
     private void recordAction() {
         forwardStack.clear();
-        backwardStack.push(new ArrayList<>(shapes));
+        backwardStack.push(cloneShapes());
+    }
+
+    private List<Shape> cloneShapes() {
+        List<Shape> shapes = new ArrayList<>();
+        for (Shape shape : this.shapes) {
+            shapes.add(shape.copy());
+        }
+        return shapes;
     }
 
 }
