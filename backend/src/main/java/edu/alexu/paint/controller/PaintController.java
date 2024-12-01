@@ -53,7 +53,12 @@ public class PaintController {
 
     @PutMapping("/color")
     public void changeShapeColor(@RequestParam String id, @RequestParam String color) {
-        stageService.changeShapeColor(id, color);
+        stageService.changeStrokeColor(id, color);
+    }
+
+    @PutMapping("/fill")
+    public void changeFill(@RequestParam String id, @RequestParam String fill) {
+        stageService.changeFill(id, fill);
     }
 
     @PutMapping("/move")

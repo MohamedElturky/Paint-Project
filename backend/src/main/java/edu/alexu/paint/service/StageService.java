@@ -57,10 +57,21 @@ public class StageService {
         throw new RuntimeException("Shape not found");
     }
 
-    public void changeShapeColor(String id, String color) {
+    public void changeStrokeColor(String id, String color) {
         for (Shape shape : shapes) {
             if (shape.getId().equals(id)) {
-                shape.changeColor(color);
+                shape.changeStrokeColor(color);
+                recordAction();
+                return;
+            }
+        }
+        throw new RuntimeException("Shape not found");
+    }
+
+    public void changeFill(String id, String color) {
+        for (Shape shape : shapes) {
+            if (shape.getId().equals(id)) {
+                shape.changeFill(color);
                 recordAction();
                 return;
             }

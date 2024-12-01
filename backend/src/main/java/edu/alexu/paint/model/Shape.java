@@ -24,6 +24,7 @@ public abstract class Shape implements Cloneable {
     private double y;
     private String stroke;
     private double strokeWidth;
+    private String fill;
 
     public Shape(ShapeConfig shapeConfig) {
         this.id = shapeConfig.id();
@@ -31,6 +32,7 @@ public abstract class Shape implements Cloneable {
         this.y = shapeConfig.y();
         this.stroke = shapeConfig.stroke();
         this.strokeWidth = shapeConfig.strokeWidth();
+        this.fill = shapeConfig.fill();
     }
 
     public Shape(Shape source) {
@@ -39,6 +41,7 @@ public abstract class Shape implements Cloneable {
         this.y = source.getY();
         this.stroke = source.getStroke();
         this.strokeWidth = source.getStrokeWidth();
+        this.fill = source.getFill();
     }
 
     public String getId() {
@@ -62,6 +65,10 @@ public abstract class Shape implements Cloneable {
         return strokeWidth;
     }
 
+    public String getFill() {
+        return fill;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -82,8 +89,12 @@ public abstract class Shape implements Cloneable {
         this.strokeWidth = strokeWidth;
     }
 
-    public void changeColor(String color) {
+    public void changeStrokeColor(String color) {
          this.stroke = color;
+    }
+
+    public void changeFill(String fill) {
+        this.fill = fill;
     }
 
     public void move(double x, double y) {
