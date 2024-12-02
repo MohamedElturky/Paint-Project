@@ -93,16 +93,18 @@ export const changeShapeStrokeColor = async (id, color, shape, setShapes) => {
   );
 };
 
-// Move a shape
 export const moveShape = async (id, x, y, shapes, setShapes) => {
+  if (x === undefined || y === undefined) {
+    throw new Error("Coordinates cannot be undefined.");
+  }
+
   const response = await fetch(`${API_BASE_URL}/move?id=${id}&x=${x}&y=${y}`, {
-    method: "PATCH",
+    method: "PUT",
   });
   if (!response.ok) {
     throw new Error("Failed to move shape.");
   }
 
-  // Update the local state after the successful move
   setShapes(
     shapes.map((shape) => (shape.id === id ? { ...shape, x, y } : shape))
   );

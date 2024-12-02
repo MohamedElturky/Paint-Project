@@ -6,7 +6,11 @@ const ShapeRenderer = ({
   onShapeClick,
   onShapeDragEnd,
   handleAddShape,
+  selected,
 }) => {
+  // Add visual indication for selected shapes
+  const isSelectedStyle = selected ? { stroke: "blue", strokeWidth: 2 } : {};
+
   // Calculate the radiusA for circles
   const calculateRadius = (x1, y1, x2, y2) => {
     const width = Math.abs(x2 - x1);
@@ -61,6 +65,7 @@ const ShapeRenderer = ({
         shape.y1, // Bottom right
         (shape.x1 + shape.x2) / 2,
         shape.y2, // Bottom center
+        { ...isSelectedStyle }, // Add selected styles
       ];
       return (
         <Line
@@ -71,6 +76,7 @@ const ShapeRenderer = ({
           onClick={() => onShapeClick(shape.id)}
           stroke={shape.stroke || "black"}
           strokeWidth={shape.strokeWidth || 1}
+          {...isSelectedStyle} // Add selected styles
         />
       );
     }
@@ -89,6 +95,7 @@ const ShapeRenderer = ({
           fill={shape.fill || "transparent"}
           stroke={shape.stroke || "black"}
           strokeWidth={shape.strokeWidth || 1}
+          {...isSelectedStyle} // Add selected styles
         />
       );
     }
@@ -107,6 +114,7 @@ const ShapeRenderer = ({
           onDragEnd={(e) =>
             onShapeDragEnd(shape.id, e.target.x(), e.target.y())
           }
+          {...isSelectedStyle} // Add selected styles
         />
       );
     }
@@ -125,6 +133,7 @@ const ShapeRenderer = ({
           fill={shape.fill || "transparent"}
           stroke={shape.stroke || "black"}
           strokeWidth={shape.strokeWidth || 1}
+          {...isSelectedStyle} // Add selected styles
         />
       );
     }
@@ -139,6 +148,7 @@ const ShapeRenderer = ({
           onClick={() => onShapeClick(shape.id)}
           stroke={shape.stroke || "black"}
           strokeWidth={shape.strokeWidth || 1}
+          {...isSelectedStyle} // Add selected styles
         />
       );
     }
@@ -156,6 +166,7 @@ const ShapeRenderer = ({
           fill={shape.fill || "transparent"}
           stroke={shape.stroke || "black"}
           strokeWidth={shape.strokeWidth || 1}
+          {...isSelectedStyle} // Add selected styles
         />
       );
     }
