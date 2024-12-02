@@ -166,7 +166,6 @@ const ShapeRenderer = ({
           fill={shape.fill || "transparent"}
           stroke={shape.stroke || "black"}
           strokeWidth={shape.strokeWidth || 1}
-          {...isSelectedStyle} // Add selected styles
         />
       );
     }

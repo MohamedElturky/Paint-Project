@@ -30,27 +30,20 @@ const App = () => {
   const [fillColor, setFillColor] = useState("transparent");
   const [strokeColor, setStrokeColor] = useState("black");
   const [selectedShape, setSelectedShape] = useState({ fill: "#ffffff" });
-  const [selectedShapeId, setSelectedShapeId] = useState(null);
-  const [editingShape, setEditingShape] = useState(null);
-  const transformerRef = useRef();
   const stageRef = useRef();
 
   useEffect(() => {
-    if (selectedId && transformerRef.current) {
-      const selectedNode = stageRef.current.findOne(`#${selectedId}`);
-      transformerRef.current.attachTo(selectedNode);
-      stageRef.current.batchDraw(); // Update the canvas after attaching the transformer
-    }
-  }, [selectedId]);
-
-  const handleShapeEdit = (updatedShape) => {
-    setShapes((prevShapes) =>
-      prevShapes.map((shape) =>
-        shape.id === updatedShape.id ? updatedShape : shape
-      )
-    );
-    setEditingShape(null); // Close the edit dialog after updating
-  };
+    const fetchShapes = async () => {
+      try {
+        const fetchedShapes = await getShapes();
+        console.log("Fetched shapes:", fetchedShapes);
+        setShapes(fetchedShapes);
+      } catch (error) {
+        console.error("Error fetching shapes:", error);
+      }
+    };
+    fetchShapes();
+  }, []);
 
   // Calculate radius for circle
   const calculateRadius = (x1, y1, x2, y2) => {
@@ -220,7 +213,6 @@ const App = () => {
     if (!isDrawing) return;
 
     const { x, y } = e.target.getStage().getPointerPosition();
-    const isLine = shapeType.toLowerCase() === "line";
     const isSquare = shapeType.toLowerCase() === "square";
 
     let newShape = {
@@ -427,20 +419,6 @@ const App = () => {
       console.error("Error changing stroke color:", error);
     }
   };
-  const handleShapeClick = (shapeId) => {
-    setSelectedShapeId(shapeId); // Mark the clicked shape as selected
-  };
-
-  // Pass selected status to ShapeRenderer
-  shapes.map((shape) => (
-    <ShapeRenderer
-      key={shape.id}
-      shape={shape}
-      onClick={() => handleShapeClick(shape)} // Attach the click handler
-      onShapeDragEnd={handleShapeDragEnd}
-      selected={shape.id === selectedShapeId}
-    />
-  ));
 
   return (
     <div className="App">
@@ -461,6 +439,7 @@ const App = () => {
             backgroundColor: selectedShape.fill, // This should reflect the current selected shape's color
           }}
         ></div>
+
         {/* Color pickers */}
         <div>
           <label>Fill Color:</label>
